@@ -14,8 +14,26 @@ def get_sample_text():
     return content
 
 
-class WordParser(object):
+class TextStream(object):
+    """A stream of textual characters."""
     pass
+
+class WordParser(object):
+    """Responsible for extracting words from a stream of text.
+    
+    This will be implemented as a state machine. 
+
+                                               / - - alpha-numeric character
+    Start  non-whitespace character           |     |
+    State     ->                         Reading< - |
+         whitespace and punctuation  character
+               <-
+
+    When we transition from Reading to Start State, whatever is in the
+    buffer will be considered a word. 
+    """
+    
+    PUNCTUATION = [".", ";", "?", ",", "!", "&", "(", ")", ":"]
 
 class WordCount(object):
     """Includes a count for how often a word appears."""
