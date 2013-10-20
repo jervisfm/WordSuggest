@@ -29,10 +29,10 @@ class TextStream(object):
         """Retrieves the next charatcer from the text stream"""
         if not self.line:
             # next() will raise StopIteration when EOF is hit.
-            self.line = f.next()
+            self.line = self.f.next()
         
         if self.char_pos < len(self.line):
-            char = self.line[char_pos]
+            char = self.line[self.char_pos]
             self.char_pos += 1
             return char
         else: # we have exhausted our line-cache
@@ -40,11 +40,6 @@ class TextStream(object):
             self.line = ""
             self.char_pos = 0
             return self.get_character()
-
-
-        
-
-    
 
 
 class WordParser(object):
@@ -80,7 +75,13 @@ class WordCount(object):
         self.count += 1
 
 def test():
-    print get_sample_text()
+    file_path = "test_input.txt"
+    ts = TextStream(file_path)
+    print 'created ts'
+    num_chars = 15
+    print 'trying to get %s chars' % num_chars
+    for _ in xrange(num_chars):
+        print ts.get_character()
 
 
 def main():
