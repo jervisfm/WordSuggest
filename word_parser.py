@@ -69,7 +69,7 @@ class WordParser(object):
     
     
 
-    def get_word():
+    def get_word(self):
         """Gets the next word from the stream."""
         global PUNCTUATION
         READING_STATE = 'READING'
