@@ -1,0 +1,3 @@
+This is a test input file. The purpose of this file is to test functionality of the word suggest program.
+
+Word Suggest is a program for providing word suggestions to complete sentences. 
