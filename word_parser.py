@@ -60,8 +60,47 @@ class WordParser(object):
     buffer will be considered a word. 
     """
     
-    PUNCTUATION = [".", ";", "?", ",", "!", "&", "(", ")", ":"]
+    PUNCTUATION = (".", ";", "?", ",", "!", "&", "(", ")", ":")
 
+    def __init__(self, text_stream):
+        if not text_stream:
+            raise ValueError("Text Stream not specified")
+        self.text_stream = text_stream
+    
+    
+
+    def get_word():
+        """Gets the next word from the stream."""
+        global PUNCTUATION
+        READING_STATE = 'READING'
+        INIT_STATE = 'INIT STATE'
+        state = INIT_STATE
+        char_buffer = ""
+        while(True):
+            char = self.text_stream.get_character()
+            
+            if char is not None:
+                if state == INIT_STATE:
+                    # Skip whitespace and non-alphanumeric characters.
+                    if char.isspace() or not char.isalnum():
+                        continue
+                    else:
+                        state = READING_STATE
+                        char_buffer += char
+                elif state == READING_STATE:
+                    # Read until we hit whitespace character or 
+                    # non-alpha numeric character with the exeption of
+                    #  some chars which are not considered to mark end of a word. 
+                    non_word_delimeters = ["-", "'"]
+                    if (not char in non_word_delimeters and 
+                        (char.isspace() or  not char.isalnum()))):
+                        return char_buffer
+                    else:
+                        char_buffer += char
+                
+            else: # End of stream
+                return char_buffer
+            
 class WordCount(object):
     """Includes a count for how often a word appears."""
     def __init__(self, word, count):
