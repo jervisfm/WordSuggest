@@ -9,14 +9,43 @@ def get_sample_text():
     path = "test_input.txt"
     content = ""
     with open(path,"r") as f:
-        content = f.read()
+        content = f.read(1)
     
     return content
 
 
 class TextStream(object):
     """A stream of textual characters."""
-    pass
+    
+    def __init__(self, file_path):
+        if not file_path:
+            raise ValueError("File Path not given")
+
+        self.f = open(file_path, "r")
+        self.char_pos = 0
+        self.line = ""
+
+    def get_character(self):
+        """Retrieves the next charatcer from the text stream"""
+        if not self.line:
+            # next() will raise StopIteration when EOF is hit.
+            self.line = f.next()
+        
+        if self.char_pos < len(self.line):
+            char = self.line[char_pos]
+            self.char_pos += 1
+            return char
+        else: # we have exhausted our line-cache
+            # Reset our lines/position tracker
+            self.line = ""
+            self.char_pos = 0
+            return self.get_character()
+
+
+        
+
+    
+
 
 class WordParser(object):
     """Responsible for extracting words from a stream of text.
@@ -47,7 +76,7 @@ class WordCount(object):
         self.word = word
         self.count = count
 
-    def incrementCount(self):
+    def increment_count(self):
         self.count += 1
 
 def test():
