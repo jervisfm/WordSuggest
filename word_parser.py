@@ -48,12 +48,14 @@ class TextStream(object):
 class WordParser(object):
     """Responsible for extracting words from a stream of text.
     
-    This will be implemented as a state machine. 
+    This will be implemented as a DFA state machine. 
 
-                                               / - - alpha-numeric character
-    Start  non-whitespace character           |     |
-    State     ->                         Reading< - |
-         whitespace and punctuation  character
+                                               / - -  alpha-numeric character
+    Start  non-whitespace character           |      \
+    State     ->                         Reading < - |
+           non-alphanumeric character
+           except a few characters (e.g. "-")
+           which are not considered word-terminators. 
                <-
 
     When we transition from Reading to Start State, whatever is in the
@@ -67,8 +69,6 @@ class WordParser(object):
             raise ValueError("Text Stream not specified")
         self.text_stream = text_stream
     
-    
-
     def get_word(self):
         """Gets the next word from the stream."""
         global PUNCTUATION
