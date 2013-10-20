@@ -15,10 +15,10 @@ possible candidates.
 Algoritm for program is kept simple to simplify implementation. Essentially, there are three steps
 involved.
 
-** Find all words in an input dataset
-** For each word, build a hashmap that has the word as the key, and all the words that we find
+1. Find all words in an input dataset
+1. For each word, build a hashmap that has the word as the key, and all the words that we find
 in the dataset that come after this word along with how many times it appears
-** So, Given a candidate input word, look it up in the built hashmap and return the word
+1. So, Given a candidate input word, look it up in the built hashmap and return the word
 that apppears the most times.
 
 
