@@ -93,7 +93,7 @@ class WordParser(object):
                     #  some chars which are not considered to mark end of a word. 
                     non_word_delimeters = ["-", "'"]
                     if (not char in non_word_delimeters and 
-                        (char.isspace() or  not char.isalnum()))):
+                        (char.isspace() or  not char.isalnum())):
                         return char_buffer
                     else:
                         char_buffer += char
