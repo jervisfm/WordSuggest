@@ -22,6 +22,10 @@ in the dataset that come after this word along with how many times it appears
 that apppears the most times.
 
 
+<strong>NOTE:</strong> This is an O(N^2) algorithm due to the second step. That is too slow as I'd want to be able 
+to process large data sets quickly. TODO(jervis): Optimize that step to make it an O(N) algorithm
+so ideally we build the same data-structuure but do it in O(N) with one parse through the data. 
+
 
 ## Application
 The main usecase here is to be used as a general API that can be queried to give word suggestions
