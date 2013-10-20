@@ -26,11 +26,14 @@ class TextStream(object):
         self.line = ""
 
     def get_character(self):
-        """Retrieves the next charatcer from the text stream"""
+        """Retrieves the next charatcer from the text strea 
+           or NOne if EOF. m"""
         if not self.line:
             # next() will raise StopIteration when EOF is hit.
-            self.line = self.f.next()
-        
+            try:
+                self.line = self.f.next()
+            except StopIteration:
+                return None
         if self.char_pos < len(self.line):
             char = self.line[self.char_pos]
             self.char_pos += 1
@@ -78,7 +81,7 @@ def test():
     file_path = "test_input.txt"
     ts = TextStream(file_path)
     print 'created ts'
-    num_chars = 15
+    num_chars = 200
     print 'trying to get %s chars' % num_chars
     for _ in xrange(num_chars):
         print ts.get_character()
