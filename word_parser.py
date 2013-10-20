@@ -100,6 +100,33 @@ class WordParser(object):
                 
             else: # End of stream
                 return char_buffer
+
+    def get_word_pair(self):
+        """Gets the next word pair from the stream.
+
+        This should respect sentence boundaries such that
+        words that we don't give a word-pair that cross sentence
+        boundaries.
+
+        For example in the text: 
+
+        "Hello World. Welcome Back."
+        
+        Word Pairs are:
+        <Hello, World>
+        <Welcome, Back>
+
+        And it does not include
+
+        <World, Welcome>
+
+        The same should with the ";" and ":" punctuation characters.
+        """
+        # Note to implement this, we'd need to kep the "." in the text stream
+        # and not remove as we currently do. Otherwise, cannot know if a word
+        # is the last word of a sentence. 
+        pass
+        
             
 class WordCount(object):
     """Includes a count for how often a word appears."""
@@ -115,6 +142,9 @@ class WordCount(object):
 
     def increment_count(self):
         self.count += 1
+
+
+
 
 def test():
     file_path = "test_input.txt"
