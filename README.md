@@ -23,7 +23,7 @@ that apppears the most times.
 
 
 
-## Applications
+## Application
 The main usecase here is to be used as a general API that can be queried to give word suggestions
 based on the previous word. 
 
