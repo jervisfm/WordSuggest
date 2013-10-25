@@ -26,8 +26,8 @@ class TextStream(object):
         self.line = ""
 
     def get_character(self):
-        """Retrieves the next charatcer from the text strea 
-           or NOne if EOF. m"""
+        """Retrieves the next charatcer from the text stream
+           or None if EOF. """
         if not self.line:
             # next() will raise StopIteration when EOF is hit.
             try:
@@ -39,7 +39,7 @@ class TextStream(object):
             self.char_pos += 1
             return char
         else: # we have exhausted our line-cache
-            # Reset our lines/position tracker
+            # Reset our line and char position tracker
             self.line = ""
             self.char_pos = 0
             return self.get_character()
@@ -76,6 +76,8 @@ class WordParser(object):
         INIT_STATE = 'INIT STATE'
         state = INIT_STATE
         char_buffer = ""
+        non_word_delimeters = ["-", "'"]
+        sentence_delimeters = [".", ";", ":"]
         while(True):
             char = self.text_stream.get_character()
             
@@ -91,9 +93,15 @@ class WordParser(object):
                     # Read until we hit whitespace character or 
                     # non-alpha numeric character with the exeption of
                     #  some chars which are not considered to mark end of a word. 
-                    non_word_delimeters = ["-", "'"]
+                    
                     if (not char in non_word_delimeters and 
                         (char.isspace() or  not char.isalnum())):
+                        # If character is a sentence terminator/delimeter
+                        # include it, so that future clients know this
+                        # was the last word. 
+                        if char in sentence_delimeters:
+                            char_buffer += char
+                        
                         return char_buffer
                     else:
                         char_buffer += char
@@ -105,7 +113,7 @@ class WordParser(object):
         """Gets the next word pair from the stream.
 
         This should respect sentence boundaries such that
-        words that we don't give a word-pair that cross sentence
+        that we don't give a word-pair that cross sentence
         boundaries.
 
         For example in the text: 
@@ -120,7 +128,7 @@ class WordParser(object):
 
         <World, Welcome>
 
-        The same should with the ";" and ":" punctuation characters.
+        The same should apply with the ";" and ":" punctuation characters.
         """
         # Note to implement this, we'd need to kep the "." in the text stream
         # and not remove as we currently do. Otherwise, cannot know if a word

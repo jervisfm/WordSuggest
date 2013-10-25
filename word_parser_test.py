@@ -51,17 +51,11 @@ class WordParserTest(unittest.TestCase):
 
         words = contents.split()
         
-        # Drop  last "." if present
-        result = []
-        for word in words:
-            if word[-1] == ".":
-                word = word[:-1]
-                result.append(word)
-            else:
-                result.append(word)
-                
-        return result
-
+        # Our WordParser including terminating punctuations in words
+        # so that sentence termination can be determined, so no need
+        # to do any filtering here.
+        return words
+        
     def test_get_word(self):
         
         # Get all the words in text input file.
@@ -80,7 +74,9 @@ class WordParserTest(unittest.TestCase):
                 actual_words.append(word)
             else:
                 break
-
+        self.assertTrue(actual_words == expected_words,
+                        msg="Expected: %s \nActual: %s" %
+                        (expected_words, actual_words))
 
 if __name__ == '__main__':
     unittest.main()
