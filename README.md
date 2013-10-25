@@ -1,4 +1,3 @@
-
 Author: Jervis Muindi   
 Date: October 2013   
 
@@ -20,10 +19,8 @@ need to keep track of previous word and also respect sentence boundaries.
 
 1. For all  word pairs, build a hashmap that has the first word as the key, and then keeps track about
 how often the second word appears as the value. To allow efficient updating of word counts during data import,
- we store these in a hashmap as well.
-
- So the data structure looks like:
-
+ we store these in a hashmap as well.<br/>
+So the data structure looks like:<br/>
 Hashmap(word - > Hashmap(word -> word_count))
 
 1. So, Given a candidate input word, look it up in the built hashmap and return the word
