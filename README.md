@@ -7,7 +7,7 @@ Date: October 2013
 
 ##Introduction
 
-Word Suggest is a simple idea that aims to help people with composing sentences. Given the current
+Word Suggest is a simple program that aims to experiment with the idea of helping people with composing sentences. Given the current
 word, word suggest program will attempt to auto-complete the next word for the user by showing
 possible candidates. 
 
@@ -15,16 +15,23 @@ possible candidates.
 Algorithm for program is kept simple to simplify implementation. Essentially, there are three steps
 involved.
 
-1. Find all words in an input dataset
-1. For each word, build a hashmap that has the word as the key, and all the words that we find
-in the dataset that come after this word along with how many times it appears
+1. Scan all words in an input dataset and process them in pairs <previous_word, current_word>. Would
+need to keep track of previous word and also respect sentence boundaries.
+
+1. For all  word pairs, build a hashmap that has the first word as the key, and then keeps track about
+how often the second word appears as the value. To allow efficient updating of word counts during data import,
+ we store these in a hashmap as well.
+
+ So the data structure looks like:
+
+Hashmap(word - > Hashmap(word -> word_count))
+
 1. So, Given a candidate input word, look it up in the built hashmap and return the word
 that apppears the most times.
 
-
-<strong>NOTE:</strong> This is an O(N^2) algorithm due to the second step. That is too slow as I'd want to be able 
-to process large data sets quickly. TODO(jervis): Optimize that step to make it an O(N) algorithm
-so ideally we build the same data-structuure but do it in O(N) with one parse through the data. 
+TODO(jervis): Convert this processed data into a form that will allow quick lookups (the above structure is not 
+ideal due to the values not being sorted by word-count). Bonus: try and see it we can do that online, otherwise 
+will have to resort doing another pass through the processed data to sort based on word-count.  
 
 
 ## Application
