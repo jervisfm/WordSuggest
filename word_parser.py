@@ -68,8 +68,16 @@ class WordParser(object):
         if not text_stream:
             raise ValueError("Text Stream not specified")
         self.text_stream = text_stream
-    
-    def get_word(self):
+        self.prev_word = ""
+        self.curr_word = ""
+
+    def _update_prev_word(self, new_word):
+        """Updates the previous/current word pairing."""
+        if self.curr_word:
+            self.prev_word = self.curr_word
+        self.curr_word = new_word
+
+    def _get_word(self):
         """Gets the next word from the stream."""
         global PUNCTUATION
         READING_STATE = 'READING'
@@ -109,6 +117,20 @@ class WordParser(object):
             else: # End of stream
                 return char_buffer
 
+    @staticmethod
+    def normalize_word(word):
+        """Nomarlizes the given word by removing whitespace and converting to lowercase."""
+        if not word:
+            return ""
+
+        return word.strip().lower()
+
+    def get_word(self):
+        new_word = self._get_word()
+        new_word = self.normalize_word(new_word)
+        self._update_prev_word(new_word)
+        return new_word
+
     def get_word_pair(self):
         """Gets the next word pair from the stream.
 
@@ -130,10 +152,24 @@ class WordParser(object):
 
         The same should apply with the ";" and ":" punctuation characters.
         """
-        # Note to implement this, we'd need to kep the "." in the text stream
-        # and not remove as we currently do. Otherwise, cannot know if a word
-        # is the last word of a sentence. 
-        pass
+        
+        # We use the fact that the word token retain the sentence punctuation delimeters
+        # to determine where the sentence boundaries are in. 
+        sentence_delimeters = [".", ";", ":"]
+        while True:
+            self.get_word()
+            prev = self.prev_word
+            curr = self.curr_word
+            
+            # Skip word Pairs in which the previous words with
+            # a sentence punctuation (e.g. '.', ';' etc). This represents
+            # A cross-sentence barrier word pair. 
+            last_char = prev[-1]
+            if last_char in sentence_delimeters:
+                continue
+
+            return (prev,curr)
+        
         
             
 class WordCount(object):

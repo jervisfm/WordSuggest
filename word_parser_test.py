@@ -54,7 +54,11 @@ class WordParserTest(unittest.TestCase):
         # Our WordParser including terminating punctuations in words
         # so that sentence termination can be determined, so no need
         # to do any filtering here.
-        return words
+    
+        # However, need to apply same word normalization as
+        # The word parser does.
+        return map(WordParser.normalize_word, words)
+
         
     def test_get_word(self):
         
