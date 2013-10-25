@@ -161,6 +161,12 @@ class WordParser(object):
             prev = self.prev_word
             curr = self.curr_word
             
+            # previous word is empty, proceed ahead. 
+            # this is the case at the very beggining, when we start
+            # parsing a text stream. 
+            if not prev:
+                continue
+
             # Skip word Pairs in which the previous words with
             # a sentence punctuation (e.g. '.', ';' etc). This represents
             # A cross-sentence barrier word pair. 

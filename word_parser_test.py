@@ -82,6 +82,10 @@ class WordParserTest(unittest.TestCase):
                         msg="Expected: %s \nActual: %s" %
                         (expected_words, actual_words))
 
+
+    def test_get_word_pair(self):
+        # TODO(jervis): implement test to verify this works as expected.
+        pass
 if __name__ == '__main__':
     unittest.main()
     
