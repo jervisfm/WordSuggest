@@ -12,7 +12,7 @@ word, word suggest program will attempt to auto-complete the next word for the u
 possible candidates. 
 
 ## Algorithm
-Algoritm for program is kept simple to simplify implementation. Essentially, there are three steps
+Algorithm for program is kept simple to simplify implementation. Essentially, there are three steps
 involved.
 
 1. Find all words in an input dataset
