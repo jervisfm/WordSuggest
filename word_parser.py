@@ -17,11 +17,33 @@ def get_sample_text():
 class TextStream(object):
     """A stream of textual characters."""
     
-    def __init__(self, file_path):
+    def __init__(self, file_path=None, data=None):
+        """ Creates a TextStream from given arguments.
+
+        Only one argument should be specified, and not both. 
+
+        Specifying both arguments is taken as an error and will
+        raise a ValueError. 
+        
+        Args:
+           file_path: A file path to a text file. 
+           data: A data string with the data. 
+        """
+
+        if not (file_path or data):
+            raise ValueError("Must specify non-empty file_path or data args.")
+        
+        
+        if file_path:
+            self.f = open(file_path, "r")
+        elif data:
+            # Create a File-like object from a String using StringIO
+            self.f = StringIO.StringIO(data)
+        
+
         if not file_path:
             raise ValueError("File Path not given")
 
-        self.f = open(file_path, "r")
         self.char_pos = 0
         self.line = ""
 
@@ -48,7 +70,7 @@ class TextStream(object):
 class WordParser(object):
     """Responsible for extracting words from a stream of text.
     
-    This will be implemented as a DFA state machine. 
+    This will be implemented as a finite state machine. 
 
                                                / - -  alpha-numeric character
     Start  non-whitespace character           |      \
