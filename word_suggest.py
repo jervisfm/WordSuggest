@@ -144,7 +144,7 @@ def main():
         suggestion = suggest_word(suggest_dict, word)
         print "Suggestion: %s" % suggestion
         if suggestion:
-            print "Complte Suggestion: %s %s" % (word, suggestion)    
+            print "Complete Suggestion: %s %s" % (word, suggestion)    
         print "-----------------------------------------"
 
 
