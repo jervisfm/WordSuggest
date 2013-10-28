@@ -99,12 +99,9 @@ class WordParserTest(unittest.TestCase):
         i = 0
         limit = 10
         while True:
-            print 'before'
-            pair = parser.get_word_pair()
-            print pair
-            i += 1
-            if  i >= limit: exit(1)
-            if not pair:
+            pair = parser.get_word_pair() 
+            prev,curr = pair
+            if not curr:
                 break
             actual_pairs.append(pair)
             
@@ -113,7 +110,7 @@ class WordParserTest(unittest.TestCase):
         expected_size = len(expected_pairs)
         self.assertTrue(actual_size == expected_size, 
                         msg="Expected Size: %s but got %s" % 
-                        (expected_size, acutal_size))
+                        (expected_size, actual_size))
             
         # Verify contents match
         for expected,actual in zip(expected_pairs, actual_pairs):
