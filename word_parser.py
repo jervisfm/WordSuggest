@@ -171,6 +171,9 @@ class WordParser(object):
         <World, Welcome>
 
         The same should apply with the ";" and ":" punctuation characters.
+        Returns:
+            A word pair as a 2 element string tuple. If we have reached end of stream,
+            then (None,None) is returned. 
         """
         
         # We use the fact that the word token retain the sentence punctuation delimeters
@@ -181,6 +184,9 @@ class WordParser(object):
             prev = self.prev_word
             curr = self.curr_word
             
+            if curr is None: # Reached end of stream
+                return (None,None)
+                
             # previous word is empty, proceed ahead. 
             # this is the case at the very beggining, when we start
             # parsing a text stream. 
