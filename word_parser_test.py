@@ -54,7 +54,7 @@ class WordParserTest(unittest.TestCase):
         
         # Our WordParser including terminating punctuations in words
         # so that sentence termination can be determined, so no need
-        # to do any filtering here.
+        # to do any punctuationg stripping character here.
     
         # However, need to apply same word normalization as
         # The word parser does.
@@ -85,7 +85,6 @@ class WordParserTest(unittest.TestCase):
 
 
     def test_get_word_pair(self):
-        # TODO(jervis): implement test to verify this works as expected.
         data = "This is a sentence. Hello. World. Good bye; See you later."
         expected_pairs = [("this", "is"), 
                           ("is", "a"),
