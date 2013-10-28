@@ -3,6 +3,7 @@
 __author__ = 'Jervis Muindi'
 __date__ ='October 2013'
 
+import sys
 
 from word_parser import TextStream
 from word_parser import WordParser
@@ -77,3 +78,60 @@ class WordSuggestBuilder(object):
                 value_dict[next] = word_count
                 result[curr] = value_dict
         return result
+
+
+
+def suggest_word(suggest_dict, curr_word):
+    """ A suggestion dictionary. 
+
+    Args:
+        suggest_dict: A dict that has the the following form. 
+           current_word -> {next_word -> WordCount object }e
+
+        curr_word: The current word. 
+
+    Returns:
+       The most probable next word or None
+       if no suggestions are available. 
+    """
+
+    if curr_word in suggest_dict:
+        candidates_dict = suggest_dict[curr_word]
+        top_word_count = None
+        for item,word_count in candidates_dict.iteritems():
+            if not top_word_count:
+                top_word_count = word_count
+                continue
+            if word_count.count > top_word_count.count:
+                top_word_count = word_count
+            elif word_count.count == top_word.count:
+                # Randomly pick either word: 50/50 chance
+                if (random.random() > 0.5):
+                    top_word_count = word_count
+            else: 
+                # Do nothing, just skip ahead
+                pass
+        return top_word_count
+    else:
+        return None
+
+def main():
+    print sys.argv[0]
+    argc = len(sys.argv) - 1
+    if argc != 1:
+        print "Usage: %s input_text_file" % sys.argv[0]
+        exit(-1)
+    else:
+        file_path = sys.argv[1]
+    
+    print 'Opening text stream to file ...'
+    text_stream = TextStream(file_path=file_path)
+    print 'Done'
+
+    print 'Building Word Suggest Dictionary'
+    s = raw_input()
+    print s
+
+
+if __name__ == '__main__':
+    main()
