@@ -120,12 +120,12 @@ class WordParser(object):
                 elif state == READING_STATE:
                     # Read until we hit whitespace character or 
                     # non-alpha numeric character with the exeption of
-                    #  some chars which are not considered to mark end of a word. 
+                    # some chars which are not considered to mark end of a word. 
                     
                     if (not char in non_word_delimeters and 
                         (char.isspace() or  not char.isalnum())):
                         # If character is a sentence terminator/delimeter
-                        # include it, so that future clients know this
+                        # include it, so that downstream clients know this
                         # was the last word. 
                         if char in sentence_delimeters:
                             char_buffer += char
@@ -146,7 +146,16 @@ class WordParser(object):
         return word.strip().lower()
 
     def get_word(self):
+        """ Gets the next word from the text stream.
+
+        If no word is available due to end of stream, 
+        then None is returned.
+        """
         new_word = self._get_word()
+
+        if not new_word:
+            return None
+        
         new_word = self.normalize_word(new_word)
         self._update_prev_word(new_word)
         return new_word
