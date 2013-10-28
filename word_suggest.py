@@ -47,6 +47,9 @@ class WordSuggestBuilder(object):
         while True:
             curr, next = parser.get_word_pair()
 
+            # Remember, structure we want is :
+            # curr_word -> { next_word -> WordCount object}
+
             if not next:
                 # We're done
                 break
@@ -71,6 +74,6 @@ class WordSuggestBuilder(object):
                 # Since key didn't exist before, we need 
                 # to create the value dict. 
                 value_dict = {}
-                value_dict[curr] = word_count
+                value_dict[next] = word_count
                 result[curr] = value_dict
         return result
