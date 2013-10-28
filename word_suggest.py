@@ -4,6 +4,7 @@ __author__ = 'Jervis Muindi'
 __date__ ='October 2013'
 
 import sys
+import random
 
 from word_parser import TextStream
 from word_parser import WordParser
@@ -95,6 +96,9 @@ def suggest_word(suggest_dict, curr_word):
        if no suggestions are available. 
     """
 
+    # normalize given word
+    curr_word = WordParser.normalize_word(curr_word)
+
     if curr_word in suggest_dict:
         candidates_dict = suggest_dict[curr_word]
         top_word_count = None
@@ -104,7 +108,7 @@ def suggest_word(suggest_dict, curr_word):
                 continue
             if word_count.count > top_word_count.count:
                 top_word_count = word_count
-            elif word_count.count == top_word.count:
+            elif word_count.count == top_word_count.count:
                 # Randomly pick either word: 50/50 chance
                 if (random.random() > 0.5):
                     top_word_count = word_count
@@ -128,9 +132,20 @@ def main():
     text_stream = TextStream(file_path=file_path)
     print 'Done'
 
-    print 'Building Word Suggest Dictionary'
-    s = raw_input()
-    print s
+    print 'Building Word Suggest Dictionary ...'
+    suggest_dict = WordSuggestBuilder(text_stream).process_input()
+    print 'Done'
+
+    print suggest_dict
+    print 'Starting interactive prompt... Ctl-C to quit'
+    while True:
+        print 'Enter word to lookup:>', 
+        word  = raw_input()
+        suggestion = suggest_word(suggest_dict, word)
+        print "Suggestion: %s" % suggestion
+        if suggestion:
+            print "Complte Suggestion: %s %s" % (word, suggestion)    
+        print "-----------------------------------------"
 
 
 if __name__ == '__main__':
