@@ -154,10 +154,10 @@ class WordParser(object):
         new_word = self._get_word()
 
         if not new_word:
-            # Update the (prev,curr) state varibles 
+            # Update the {prev,curr}_word varibles 
             # to indicate end of stream. 
             self.prev_word = self.curr_word
-            self.curr = None
+            self.curr_word = None
             return None
         
         new_word = self.normalize_word(new_word)
@@ -185,7 +185,7 @@ class WordParser(object):
 
         The same should apply with the ";" and ":" punctuation characters.
         Returns:
-            A word pair as a 2 element string tuple. If we have reached end of stream,
+            A normazlied word pair as a 2 element string tuple. If we have reached end of stream,
             then (None,None) is returned. 
         """
         
