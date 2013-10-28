@@ -5,6 +5,8 @@ __date__ = 'October 2013'
 """This module contains code for splitting text into individual
 word tokens."""
 
+import StringIO
+
 def get_sample_text():
     path = "test_input.txt"
     content = ""
@@ -195,6 +197,11 @@ class WordParser(object):
             last_char = prev[-1]
             if last_char in sentence_delimeters:
                 continue
+
+            # Don't include the "." or other sentence_derlimeter character in the generated 
+            # word pair. We're only interested in the word itself from this point forward.
+            if curr[-1] in sentence_delimeters:
+                curr = curr[:-1]
 
             return (prev,curr)
         
