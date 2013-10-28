@@ -238,7 +238,7 @@ class WordCount(object):
         self.count += 1
 
     def __repr__(self):
-        return "%s:%d" % (word,count)
+        return "%s:%d" % (self.word,self.count)
 
 
 def test():
