@@ -14,12 +14,12 @@ class WordSuggestBuilder(object):
     """
 
     def __init__(self, text_stream):
-    """Creates a word suggest builder object.
+        """Creates a word suggest builder object.
 
-    Args:
-        text_stream: A WordParser.TextStream object. It contains the text 
-        stream to use for building up the word suggestions. 
-    """
+        Args:
+            text_stream: A WordParser.TextStream object. It contains the text 
+            stream to use for building up the word suggestions. 
+        """
         if not text_stream:
             raise ValueError("text stream must be specified")
 
