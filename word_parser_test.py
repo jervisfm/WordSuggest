@@ -3,6 +3,7 @@ __author__ = 'Jervis Muindi'
 __date__ = 'October 2013'
 
 import unittest
+import StringIO
 
 from word_parser import TextStream
 from word_parser import WordParser
@@ -85,7 +86,35 @@ class WordParserTest(unittest.TestCase):
 
     def test_get_word_pair(self):
         # TODO(jervis): implement test to verify this works as expected.
-        pass
+        data = "This is a sentence. Hello. World. Good bye; See you later."
+        expected_pairs = [("this", "is"), 
+                          ("is", "a"),
+                          ("a", "sentence"),
+                          ("good", "bye"),
+                          ("see", "you"),
+                          ("you", "later")]
+        text_stream = TextStream(data=data)
+        parser = WordParser(text_stream)
+        actual_pairs = []
+        while True:
+            pair = parser.get_word_pair()
+            if not pair:
+                break
+            actual_pairs.append(pair)
+            
+        # Check that the sizes match
+        actual_size = len(actual_pairs)
+        expected_size = len(expected_pairs)
+        self.assertTrue(actual_size == expected_size, 
+                        msg="Expected Size: %s but got %s" % 
+                        (expected_size, acutal_size))
+            
+        # Verify contents match
+        for expected,actual in zip(expected_pairs, actual_pairs):
+            self.assertTrue(expected == actual,
+                            msg="Expected %s but got %s" % 
+                            (expected,actual))
+
 if __name__ == '__main__':
     unittest.main()
     
