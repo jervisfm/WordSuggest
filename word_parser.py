@@ -41,11 +41,7 @@ class TextStream(object):
         elif data:
             # Create a File-like object from a String using StringIO
             self.f = StringIO.StringIO(data)
-        
-
-        if not file_path:
-            raise ValueError("File Path not given")
-
+                
         self.char_pos = 0
         self.line = ""
 
