@@ -30,6 +30,14 @@ TODO(jervis): Convert this processed data into a form that will allow quick look
 ideal due to the values not being sorted by word-count). Bonus: try and see it we can do that online, otherwise 
 will have to resort doing another pass through the processed data to sort based on word-count.  
 
+SideNote: I have considered perhaps using bayes theorem in predicting the probabilities as this is a possibility. 
+In general Bayes says: P(A|B) = P(A and B) / P(B) = P(B|A)P(A) / P(B). 
+
+In our case: we want to compute P(some_next_word | current_word).  
+However, this value should already match our word-frequency counts so we can just use those. i.e, given a word
+like 'hello', the most likely subsequent is one that appears most often after 'hello' from the original body
+of input text. 
+
 
 ## Application
 The main usecase here is to be used as a general API that can be queried to give word suggestions
