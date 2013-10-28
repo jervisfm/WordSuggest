@@ -154,6 +154,10 @@ class WordParser(object):
         new_word = self._get_word()
 
         if not new_word:
+            # Update the (prev,curr) state varibles 
+            # to indicate end of stream. 
+            self.prev_word = self.curr_word
+            self.curr = None
             return None
         
         new_word = self.normalize_word(new_word)

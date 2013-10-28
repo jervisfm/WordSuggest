@@ -96,8 +96,14 @@ class WordParserTest(unittest.TestCase):
         text_stream = TextStream(data=data)
         parser = WordParser(text_stream)
         actual_pairs = []
+        i = 0
+        limit = 10
         while True:
+            print 'before'
             pair = parser.get_word_pair()
+            print pair
+            i += 1
+            if  i >= limit: exit(1)
             if not pair:
                 break
             actual_pairs.append(pair)
