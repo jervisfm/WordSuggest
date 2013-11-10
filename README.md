@@ -42,6 +42,11 @@ TODO(jervis): I take that back. Modeling with probabilities will actually be use
 shown the suggested words will always be the same for a given input. This is not ideal as it essentially
 always picks the commonly occuriing word pairs. 
 
+NOTE: So essentially, I want to return a word based on the probability distribution that we have seen. At one extreme,
+we can have/keep the entire probability distribution modelling the probabilities of consecutive words for a given
+particular word. To give an answer, we'd then sample from this distribution. The sampling process described 
+in this Wikipedia article can be used directly: http://en.wikipedia.org/wiki/Categorical_distribution#Sampling
+
 ## Application
 The main usecase here is to be used as a general API that can be queried to give word suggestions
 based on the previous word. 
