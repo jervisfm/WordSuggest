@@ -92,7 +92,7 @@ def suggest_word(suggest_dict, curr_word):
         curr_word: The current word. 
 
     Returns:
-       The most probable next word or None
+       A word count with the the most probable next word or None
        if no suggestions are available. 
     """
 
@@ -113,7 +113,8 @@ def suggest_word(suggest_dict, curr_word):
                 if (random.random() > 0.5):
                     top_word_count = word_count
             else: 
-                # Do nothing, just skip ahead
+                # The word is less likely than our current top word
+                # So do nothing, and just skip ahead
                 pass
         return top_word_count
     else:
