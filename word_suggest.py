@@ -137,7 +137,8 @@ def main():
     suggest_dict = WordSuggestBuilder(text_stream).process_input()
     print 'Done'
 
-    print suggest_dict
+    # print suggest_dict
+    print "Suggest dictionary has %s words" % len(suggest_dict)
     print 'Starting interactive prompt... Ctl-C to quit'
     while True:
         print 'Enter word to lookup:>', 
@@ -145,7 +146,7 @@ def main():
         suggestion = suggest_word(suggest_dict, word)
         print "Suggestion: %s" % suggestion
         if suggestion:
-            print "Complete Suggestion: %s %s" % (word, suggestion)    
+            print "Complete Suggestion: %s %s" % (word, suggestion.word)    
         print "-----------------------------------------"
 
 
