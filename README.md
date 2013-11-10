@@ -38,6 +38,9 @@ However, this value should already match our word-frequency counts so we can jus
 like 'hello', the most likely subsequent is one that appears most often after 'hello' from the original body
 of input text. 
 
+TODO(jervis): I take that back. Modeling with probabilities will actually be useful. Small scale testing has
+shown the suggested words will always be the same for a given input. This is not ideal as it essentially
+always picks the commonly occuriing word pairs. 
 
 ## Application
 The main usecase here is to be used as a general API that can be queried to give word suggestions

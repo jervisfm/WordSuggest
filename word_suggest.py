@@ -5,6 +5,8 @@ __date__ ='October 2013'
 
 import sys
 import random
+import time
+from datetime import timedelta
 
 from word_parser import TextStream
 from word_parser import WordParser
@@ -134,8 +136,10 @@ def main():
     print 'Done'
 
     print 'Building Word Suggest Dictionary ...'
+    start_time = time.time()
     suggest_dict = WordSuggestBuilder(text_stream).process_input()
-    print 'Done'
+    duration = time.time() - start_time
+    print 'Done in %s' % timedelta(seconds=duration)
 
     # print suggest_dict
     print "Suggest dictionary has %s words" % len(suggest_dict)
